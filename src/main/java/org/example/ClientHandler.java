@@ -24,16 +24,6 @@ public class ClientHandler extends Thread{
             e.printStackTrace();
         }
 
-        try{
-            ArrayList<String> Addresses= new ArrayList<>();
-            ArrayList<String> Names= new ArrayList<>();
-            FileManager FM= new FileManager();
-            FM.MASTER(Addresses,Names); //ya se leen todas los registros del arreglo de texto
-        }catch(Exception e2){
-            System.out.println("Error al leer el archivo, revisar el stack trace: ");
-            e2.printStackTrace();
-        }
-
     }
 
     public void start(){
