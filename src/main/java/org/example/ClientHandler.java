@@ -12,7 +12,12 @@ public class ClientHandler extends Thread implements Runnable {
     private static final int UDP_SIZE=1024;
 
     private static final int PUERTO_ENVIO=53;
-    public ClientHandler(Socket socket) throws SocketException {
+
+    private static ArrayList<String> Addresses= new ArrayList<>();
+    private static ArrayList<String> Names= new ArrayList<>();
+    private static ArrayList<String> Tipos= new ArrayList<>();
+    private static ArrayList<String> Groups= new ArrayList<>();
+    public ClientHandler(Socket socket, ArrayList<String> Addresses1, ArrayList<String> Names1, ArrayList<String> Tipos1, ArrayList<String> Groups1) throws SocketException {
         cliente=socket;
         try{
             SocketUDP= new DatagramSocket(PUERTO_ENVIO);
@@ -20,7 +25,10 @@ public class ClientHandler extends Thread implements Runnable {
             System.out.println("Fallo al abrir el socket, revisar el stack trace: ");
             e.printStackTrace();
         }
-
+        Addresses=Addresses1;
+        Names=Names1;
+        Tipos=Tipos1;
+        Groups= Groups1;
     }
 
     public void run(){
@@ -55,7 +63,9 @@ public class ClientHandler extends Thread implements Runnable {
                 *recuperar de ese string el nombre que se deea buscar
                 * recuperar los datos que se quieren obtener (como el header y los demás flags del paquete)
                 * comparar el string de nombre encontrado con los registrados en la memoria
-                * llamar a GetIP
+                * String ip= ...
+                * String nombre= ...
+                * String ipencontrada = GetIP(nombre);
                 * crear un tipo Mensaje con los datos recuperados del id
                 * enviar por el socket cliente el paquete creado
                     *DatagramPacket datagramaEnviar = new DatagramPacket(respuesta.getBytes(), respuesta.length(), datagramaRecibido.getAddress(), datagramaRecibido.getPort());
@@ -64,7 +74,7 @@ public class ClientHandler extends Thread implements Runnable {
 
     }
 
-    public String GetIP(String nombre, ArrayList<String> Names, ArrayList<String> Addresses){
+    public String GetIP(String nombre){
         Iterator iter = Names.iterator();
         int i=0;
         boolean encontrada=false;

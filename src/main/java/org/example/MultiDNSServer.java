@@ -35,7 +35,7 @@ public class MultiDNSServer {
             while(true){
                 try{
                     socket= ServerSocket.accept();
-                    ClientHandler manejadorClientes= new ClientHandler(socket);
+                    ClientHandler manejadorClientes= new ClientHandler(socket,Addresses,Names,Tipos, Groups);
                     ListaClientes.add(manejadorClientes);
                     pool.execute(manejadorClientes);
                 }catch(Exception sockete){
