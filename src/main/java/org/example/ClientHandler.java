@@ -38,7 +38,7 @@ public class ClientHandler extends Thread{
 
     public void start(){
         String mensaje="";
-
+        System.out.println("INICIO DE LECTURA POR EL SOCKET EN PUERTO "+SocketUDP.getLocalPort());
         do{
             byte[] in = new byte[UDP_SIZE];
             DatagramPacket indp = new DatagramPacket(in, UDP_SIZE);

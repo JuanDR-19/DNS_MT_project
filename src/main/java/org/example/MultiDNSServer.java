@@ -12,7 +12,7 @@ public class MultiDNSServer {
     private static int PORT = 53;
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
 
         try{
             System.out.println("INICIANDO EL SERVIDOR EN EL PUERTO "+PORT);
