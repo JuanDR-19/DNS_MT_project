@@ -1,6 +1,6 @@
 package org.example;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -54,7 +54,6 @@ public class ClientHandler extends Thread implements Runnable {
                 SocketUDP.receive(indp);
                 System.out.println("Se recibió un datagrama");
                 mensaje =new String(indp.getData(),0,indp.getLength());
-                System.out.println("Mensaje recibido por procesar :"+ mensaje);
                 //aca se mostraria el mensaje que llega por datagrama
                 this.procesarMensaje(indp);
             } catch (IOException e) {
@@ -67,10 +66,22 @@ public class ClientHandler extends Thread implements Runnable {
         }
     }
 
-    public void procesarMensaje(DatagramPacket indp){
+    public void procesarMensaje(DatagramPacket indp) throws IOException {
         //TODO
         String mensaje =new String(indp.getData(),0,indp.getLength());
-        System.out.println("Mensaje recibido por procesar :"+ mensaje); //revisar desde consola la estructura del paquete enviado
+        byte [] queries= mensaje.getBytes();
+        DataInputStream query = new DataInputStream(new ByteArrayInputStream(queries));
+
+        Header queryRecibida = new Header();
+        short ID= query.readShort(); // se usa short por lo que id es un espacio de 16 bits que se necesitan
+        short flags = query.readByte();
+        //int Qr = ;
+        //int opCode =;
+        //int aa=;
+        //int tc=;
+        //int rd=;
+
+
         /*
             *PASOS A SEGUIR
                 *recuperar de ese string el nombre que se deea buscar
