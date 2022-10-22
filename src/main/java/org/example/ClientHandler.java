@@ -17,6 +17,17 @@ public class ClientHandler extends Thread implements Runnable {
     private static ArrayList<String> Names= new ArrayList<>();
     private static ArrayList<String> Tipos= new ArrayList<>();
     private static ArrayList<String> Groups= new ArrayList<>();
+    private static final InetAddress IPJAVERIANADNS;
+
+    static {
+        try {
+            IPJAVERIANADNS = InetAddress.getByName("10.10.1.200");
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     public ClientHandler(Socket socket, ArrayList<String> Addresses1, ArrayList<String> Names1, ArrayList<String> Tipos1, ArrayList<String> Groups1) throws SocketException {
         cliente=socket;
         try{
@@ -80,13 +91,35 @@ public class ClientHandler extends Thread implements Runnable {
         boolean encontrada=false;
         while (iter.hasNext()){
             if(nombre.equals(iter)){
-                encontrada=true;
                 return Addresses.get(i); //esta parte falta comprobarla
             }
             i++;
         }
         if(!encontrada){
-            return "Quit";
+            return not_found(nombre);
+        }
+        return null;
+    }
+
+    private String not_found(String nom_no_encontrado){
+
+        //se supone que esta función entra cuando no se encuentre dentro del archivo maestro
+        DatagramPacket Mensaje= new DatagramPacket(nom_no_encontrado.getBytes(),nom_no_encontrado.length(),IPJAVERIANADNS, 53); //en teoria el puerto desde el rfc es el puerto 53
+        try {
+            this.SocketUDP.send(Mensaje);
+            String encontrada=null;
+            //this.socketUDP.receive();
+            /*
+            RECEPCION DE MENSAJE:
+                tokenizacion....
+                separación de mensaje de recepción por componentes
+                addresses.add();
+                names.add();
+             */
+            return encontrada;
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Noo se pudo enviar el mensaje al DNS superior");
         }
         return null;
     }
