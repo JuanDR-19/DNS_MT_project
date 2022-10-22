@@ -6,6 +6,7 @@ import java.net.DatagramSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ClientHandler extends Thread{
     private Socket cliente;
@@ -59,5 +60,21 @@ public class ClientHandler extends Thread{
         //TODO
     }
 
+    public String GetIP(String nombre, ArrayList<String> Names, ArrayList<String> Addresses){
+        Iterator iter = Names.iterator();
+        int i=0;
+        boolean encontrada=false;
+        while (iter.hasNext()){
+            if(nombre.equals(iter)){
+                encontrada=true;
+                return Addresses.get(i); //esta parte falta comprobarla
+            }
+            i++;
+        }
+        if(!encontrada){
+            return "Quit";
+        }
+        return null;
+    }
 
 }
