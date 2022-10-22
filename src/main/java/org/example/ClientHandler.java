@@ -8,7 +8,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ClientHandler extends Thread{
+public class ClientHandler extends Thread implements Runnable {
     private Socket cliente;
     private DatagramPacket input;
     private DatagramSocket SocketUDP;
@@ -26,22 +26,25 @@ public class ClientHandler extends Thread{
 
     }
 
-    public void start(){
+    public void run(){
         String mensaje="";
         System.out.println("INICIO DE LECTURA POR EL SOCKET EN PUERTO "+SocketUDP.getLocalPort());
         do{
+
             byte[] in = new byte[UDP_SIZE];
             DatagramPacket indp = new DatagramPacket(in, UDP_SIZE);
             System.out.println("Esperando envio de solicitud...");
             try {
                 SocketUDP.receive(indp);
                 System.out.println("Se recibió un datagrama");
+                mensaje =new String(indp.getData(),0,indp.getLength());
+                System.out.println("Mensaje recibido por procesar :"+ mensaje);
+                //aca se mostraria el mensaje que llega por datagrama
                 this.procesarMensaje(indp);
             } catch (IOException e) {
                 System.out.println("Error! al leer el datagrama enviado: ");
                 throw new RuntimeException(e);
             }
-            mensaje=input.toString();
         }while(!mensaje.equals("Quit"));
 
     }
