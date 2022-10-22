@@ -1,10 +1,7 @@
 package org.example;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -51,6 +48,20 @@ public class ClientHandler extends Thread implements Runnable {
 
     public void procesarMensaje(DatagramPacket indp){
         //TODO
+        String mensaje =new String(indp.getData(),0,indp.getLength());
+        System.out.println("Mensaje recibido por procesar :"+ mensaje); //revisar desde consola la estructura del paquete enviado
+        /*
+            *PASOS A SEGUIR
+                *recuperar de ese string el nombre que se deea buscar
+                * recuperar los datos que se quieren obtener (como el header y los demás flags del paquete)
+                * comparar el string de nombre encontrado con los registrados en la memoria
+                * llamar a GetIP
+                * crear un tipo Mensaje con los datos recuperados del id
+                * enviar por el socket cliente el paquete creado
+                    *DatagramPacket datagramaEnviar = new DatagramPacket(respuesta.getBytes(), respuesta.length(), datagramaRecibido.getAddress(), datagramaRecibido.getPort());
+                    * SocketUDP.send(datagramaEnviar);
+         */
+
     }
 
     public String GetIP(String nombre, ArrayList<String> Names, ArrayList<String> Addresses){
