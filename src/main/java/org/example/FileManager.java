@@ -12,19 +12,17 @@ public class FileManager {
 
     }
 
-    public void MASTER(ArrayList<String> Addresses, ArrayList<String> Names) {
+    public void MASTER(ArrayList<String> Addresses, ArrayList<String> Names, ArrayList<String> Tipos, ArrayList<String> Groups) {
         File arch = null;
         FileReader fr = null;
         BufferedReader br = null;
         StringTokenizer tokenizer;
         String ip;
         String Nombre;
-        ArrayList<String> pormeter= new ArrayList<>();
-        ArrayList<String>nombres_por_meter= new ArrayList<>();
         //obteniendo las ips del archivo maestro
         //asumiendo el archivo maestro como un documento .txt DISCUTIR CON EL GRUPO
         try {
-            arch = new File("/Users/juanmanuelduran/Desktop/MASTER.txt"); //define location
+            arch = new File(""); //define location
             fr = new FileReader(arch);
             br = new BufferedReader(fr);
             String linea;
@@ -44,13 +42,12 @@ public class FileManager {
                     .
                     (EOF)
                  */
-
-                pormeter.add(ip);
-                nombres_por_meter.add(Nombre);
+                Tipos.add(tipo);
+                Groups.add(grupo);
+                Addresses.add(ip);
+                Names.add(Nombre);
             }
 
-            Addresses=pormeter;
-            Names=nombres_por_meter;
 
         } catch (Exception e) {
             e.printStackTrace();
