@@ -44,7 +44,7 @@ public class ClientHandler extends Thread implements Runnable {
 
     public void run(){
         String mensaje="";
-        System.out.println("INICIO DE LECTURA POR EL SOCKET EN PUERTO "+SocketUDP.getLocalPort());
+        System.out.println("INICIO DE LECTURA POR EL SOCKET EN PUERTO "+SocketUDP.getLocalPort()+" "+cliente.getLocalPort());
         do{
 
             byte[] in = new byte[UDP_SIZE];
@@ -62,7 +62,9 @@ public class ClientHandler extends Thread implements Runnable {
                 throw new RuntimeException(e);
             }
         }while(!mensaje.equals("Quit"));
-
+        if(mensaje.equals("Quit")){
+            System.err.println("No se encontro la direccion para el dominio solicitado (ni en el servidor instaurado ni en el servidor de la javeriana)");
+        }
     }
 
     public void procesarMensaje(DatagramPacket indp){
@@ -121,7 +123,7 @@ public class ClientHandler extends Thread implements Runnable {
             e.printStackTrace();
             System.out.println("Noo se pudo enviar el mensaje al DNS superior");
         }
-        return null;
+        return "Quit";
     }
 
 }
