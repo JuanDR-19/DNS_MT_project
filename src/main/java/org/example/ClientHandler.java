@@ -1,6 +1,5 @@
 package org.example;
 
-import javax.management.Query;
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
