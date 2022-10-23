@@ -166,24 +166,12 @@ public class ClientHandler extends Thread implements Runnable {
                 IPJAVERIANADNS, 53); // en teoria el puerto desde el rfc es el puerto 53
         try {
             this.SocketUDP.send(Mensaje);
-            String encontrada = null;
             byte[] in = new byte[UDP_SIZE];
             DatagramPacket indp = new DatagramPacket(in, UDP_SIZE);
             System.out.println("Esperando envio de solicitud...");
                 SocketUDP.receive(indp);
                 System.out.println("Se recibió un datagrama");
-                encontrada = new String(indp.getData(), 0, indp.getLength());
-                // aca se mostraria el mensaje que llega por datagrama
-                this.procesarMensaje(indp); //se procesa el mensaje recibido y se envia al cliente
-
-            // this.socketUDP.receive();
-            /*
-             * RECEPCION DE MENSAJE:
-             * tokenizacion....
-             * separación de mensaje de recepción por componentes
-             * addresses.add();
-             * names.add();
-             */
+                this.SocketUDP.send(indp);
 
         } catch (IOException e) {
             e.printStackTrace();
