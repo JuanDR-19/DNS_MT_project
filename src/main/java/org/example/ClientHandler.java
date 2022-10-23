@@ -138,13 +138,12 @@ public class ClientHandler extends Thread implements Runnable {
         System.out.println("Class: " + String.format("%s", QCLASS));
         short QType = query.readShort();
         short QClass = query.readShort();
-        String ipencontrada= GetIP(QName);
-
-        if(ipencontrada==null){
-            System.out.println("malditos inutiles hdpta");
+        if(QName!=null){
+            String ipencontrada= GetIP(QName);
         }else{
-            System.out.println("se encontro la direccion buscada :))))");
+            System.err.println("No se cuenta con un nombre");
         }
+
 
     }
 
