@@ -120,6 +120,7 @@ public class ClientHandler extends Thread implements Runnable {
 
 
         Header queryRecibida = new Header(1, Id, z, Ra, rd, tc, aa, Qr,opCode,QDCount,ANCount,NSCount,ARCount); //LUEGO SE PUEDE PASAR ESTA CABECERA COMO PARAMETRO
+        queryRecibida.toString();
 
         String QName = "";
         int recLen;

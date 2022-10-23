@@ -43,5 +43,22 @@ public class Header {
         this.arcount= arcount1;
     }
 
-
+    @Override
+    public String toString() {
+        return "Header{" +
+                "tipo=" + tipo +
+                ", id=" + id +
+                ", z=" + z +
+                ", opCode=" + opCode +
+                ", RD=" + RD +
+                ", TC=" + TC +
+                ", AA=" + AA +
+                ", QR=" + QR +
+                ", RA=" + RA +
+                ", qdcount=" + qdcount +
+                ", ancount=" + ancount +
+                ", nscount=" + nscount +
+                ", arcount=" + arcount +
+                '}';
+    }
 }
