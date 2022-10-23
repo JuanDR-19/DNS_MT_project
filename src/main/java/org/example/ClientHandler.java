@@ -153,12 +153,12 @@ public class ClientHandler extends Thread implements Runnable {
             i++;
         }
         if (!encontrada) {
-            return not_found(nombre);
+            not_found(nombre);
         }
         return null;
     }
 
-    private String not_found(String nom_no_encontrado) {
+    private void not_found(String nom_no_encontrado) {
 
         // se supone que esta función entra cuando no se encuentre dentro del archivo
         // maestro
@@ -167,6 +167,15 @@ public class ClientHandler extends Thread implements Runnable {
         try {
             this.SocketUDP.send(Mensaje);
             String encontrada = null;
+            byte[] in = new byte[UDP_SIZE];
+            DatagramPacket indp = new DatagramPacket(in, UDP_SIZE);
+            System.out.println("Esperando envio de solicitud...");
+                SocketUDP.receive(indp);
+                System.out.println("Se recibió un datagrama");
+                encontrada = new String(indp.getData(), 0, indp.getLength());
+                // aca se mostraria el mensaje que llega por datagrama
+                this.procesarMensaje(indp); //se procesa el mensaje recibido y se envia al cliente
+
             // this.socketUDP.receive();
             /*
              * RECEPCION DE MENSAJE:
@@ -175,12 +184,11 @@ public class ClientHandler extends Thread implements Runnable {
              * addresses.add();
              * names.add();
              */
-            return encontrada;
+
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Noo se pudo enviar el mensaje al DNS superior");
         }
-        return "Quit";
     }
 
 }
