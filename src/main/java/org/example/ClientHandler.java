@@ -1,10 +1,10 @@
 package org.example;
 
+import javax.management.Query;
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 public class ClientHandler extends Thread implements Runnable {
     private Socket cliente;
@@ -122,18 +122,23 @@ public class ClientHandler extends Thread implements Runnable {
         Header queryRecibida = new Header(1, Id, z, Ra, rd, tc, aa, Qr,opCode,QDCount,ANCount,NSCount,ARCount); //LUEGO SE PUEDE PASAR ESTA CABECERA COMO PARAMETRO
 
         String QName = "";
-        int longitud_nombre;
-        while ((longitud_nombre= query.readByte()) > 0) {
-            byte[] nombre = new byte[longitud_nombre];
-            for (int i = 0; i < longitud_nombre; i++) {
-                nombre[i] = query.readByte();
+        int recLen;
+        while ((recLen = query.readByte()) > 0) {
+            byte[] record = new byte[recLen];
+            for (int i = 0; i < recLen; i++) {
+                record[i] = query.readByte();
             }
-            QName = new String(nombre, StandardCharsets.UTF_8); //se usa el standard char set
+            QName = new String(record, StandardCharsets.UTF_8);
         }
+        short QTYPE = query.readShort();
+        short QCLASS = query.readShort();
+        System.out.println("Record: " + QName);
+        System.out.println("Record Type: " + String.format("%s", QTYPE));
+        System.out.println("Class: " + String.format("%s", QCLASS));
         short QType = query.readShort();
         short QClass = query.readShort();
-
         String ipencontrada= GetIP(QName);
+
         if(ipencontrada==null){
             System.out.println("malditos inutiles hdpta");
         }else{
